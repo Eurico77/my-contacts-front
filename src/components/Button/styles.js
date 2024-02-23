@@ -1,9 +1,9 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const Button = styled.button`
-  width: 100%;
+export const ButtonWrapper = styled.button`
   height: 3.25rem;
   border: none;
+  padding: 0 1rem;
   border-radius: 4px;
   background: ${({ theme }) => theme.colors.primary.main};
   color: #fff;
@@ -21,7 +21,21 @@ export const Button = styled.button`
   }
 
   &[disabled] {
-    background: #CCC;
+    background: #ccc;
     cursor: default;
   }
+
+
+  ${({ theme, $danger }) => $danger
+    && css`
+      background: ${theme.colors.danger.main};
+
+      &:hover {
+        background: ${theme.colors.danger.light};
+      }
+
+      &:active {
+        background: ${theme.colors.danger.dark};
+      }
+    `}
 `;
