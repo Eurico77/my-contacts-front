@@ -1,16 +1,21 @@
 import propTypes from 'prop-types';
-import { Button } from './styles';
+import { ButtonWrapper } from './styles';
 
-export function InputButton({ children, type }) {
+export function Button({ children, type, danger }) {
   return (
-    <Button type={type}>
+    <ButtonWrapper type={type} $danger={danger}>
       {children}
-    </Button>
+    </ButtonWrapper>
   );
 }
 
-InputButton.propTypes = {
+Button.propTypes = {
   children: propTypes.node.isRequired,
   type: propTypes.oneOf(['button', 'submit', 'reset']),
+  danger: propTypes.bool,
+};
 
+Button.defaultProps = {
+  type: 'button',
+  danger: false,
 };
