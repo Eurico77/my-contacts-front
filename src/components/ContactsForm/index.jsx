@@ -1,7 +1,7 @@
 import propTypes from 'prop-types';
 import { ContainerForm, ButtonContainer } from './styles';
 
-import { InputButton } from '../Button';
+import { Button } from '../Button';
 import { FormGroup } from '../FormGroup';
 import { Input } from '../Input';
 import { SelectInput } from '../Select';
@@ -32,7 +32,7 @@ export function ContactForm({ buttonLabel }) {
       </FormGroup>
 
       <ButtonContainer>
-        <InputButton type="submit">{buttonLabel}</InputButton>
+        <Button type="submit">{buttonLabel}</Button>
       </ButtonContainer>
     </ContainerForm>
   );
