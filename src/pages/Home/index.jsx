@@ -7,9 +7,13 @@ import arrow from '../../assets/icons/arrow.svg';
 import edit from '../../assets/icons/edit.svg';
 import trash from '../../assets/icons/trash.svg';
 
+import { Modal } from '../../components/Modal';
+
 export function Home() {
   return (
     <Container>
+      <Modal danger />
+
       <InputSearchContainer>
         <input type="text" placeholder="Pesquisar contatos" />
       </InputSearchContainer>
@@ -27,6 +31,7 @@ export function Home() {
           </button>
         </header>
       </ListContainer>
+
       <Card>
         <div className="info">
           <div className="contact-name">
