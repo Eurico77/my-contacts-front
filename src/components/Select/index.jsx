@@ -2,11 +2,14 @@ import propTypes from 'prop-types';
 
 import { Select } from './styles';
 
-export function SelectInput({ options }) {
+export function SelectInput({ options, onChange, value }) {
   return (
-    <Select>
+    <Select
+      onChange={onChange}
+      value={value}
+    >
       {options.map((option) => (
-        <option key={option.value} value={option.value}>
+        <option onChange={onChange} key={option.value} value={option.value}>
           {option.label}
         </option>
       ))}
@@ -21,4 +24,6 @@ SelectInput.propTypes = {
       label: propTypes.string,
     }),
   ).isRequired,
+  onChange: propTypes.func.isRequired,
+  value: propTypes.string.isRequired,
 };
