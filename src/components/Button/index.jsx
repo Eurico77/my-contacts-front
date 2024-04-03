@@ -1,9 +1,15 @@
 import propTypes from 'prop-types';
 import { ButtonWrapper } from './styles';
 
-export function Button({ children, type, danger }) {
+export function Button({
+  children, type, danger, ...props
+}) {
   return (
-    <ButtonWrapper type={type} $danger={danger}>
+    <ButtonWrapper
+      type={type}
+      $danger={danger}
+      {...props}
+    >
       {children}
     </ButtonWrapper>
   );
