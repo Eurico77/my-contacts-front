@@ -8,13 +8,34 @@ import { FormGroup } from '../FormGroup';
 import { Input } from '../Input';
 import { SelectInput } from '../Select';
 
+import { useErrors } from '../../hooks/useErrors';
+
 export function ContactForm({ buttonLabel }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [category, setCategory] = useState('');
+  const { setError, removeError, getErrorMessageByFieldName } = useErrors();
 
-  const handleNameChange = (event) => setName(event.target.value);
+  function handleNameChange(event) {
+    setName(event.target.value);
+
+    if (!event.target.value) {
+      setError({ field: 'name', message: 'Nome é obrigatório' });
+      return;
+    }
+    removeError({ fieldName: 'name' });
+  }
+
+  function handleEmailChange(event) {
+    setEmail(event.target.value);
+    const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+    if (event.target.value && !emailRegex.test(event.target.value)) {
+      setError({ field: 'email', message: 'E-mail inválido' });
+      return;
+    }
+    removeError({ fieldName: 'email' });
+  }
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -22,19 +43,21 @@ export function ContactForm({ buttonLabel }) {
 
   return (
     <ContainerForm>
-      <FormGroup>
+      <FormGroup error={getErrorMessageByFieldName({ fieldName: 'name' })}>
         <Input
           placeholder="Nome"
           onChange={handleNameChange}
           value={name}
+          error={!!getErrorMessageByFieldName({ fieldName: 'name' })}
         />
       </FormGroup>
 
-      <FormGroup>
+      <FormGroup error={getErrorMessageByFieldName({ fieldName: 'email' })}>
         <Input
           placeholder="E-mail"
-          onChange={(event) => setEmail(event.target.value)}
+          onChange={handleEmailChange}
           value={email}
+          error={!!getErrorMessageByFieldName({ fieldName: 'email' })}
         />
       </FormGroup>
 
@@ -59,10 +82,7 @@ export function ContactForm({ buttonLabel }) {
       </FormGroup>
 
       <ButtonContainer>
-        <Button
-          type="submit"
-          onClick={handleSubmit}
-        >
+        <Button type="submit" onClick={handleSubmit}>
           {buttonLabel}
         </Button>
       </ButtonContainer>
